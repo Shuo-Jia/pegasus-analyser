@@ -1,5 +1,6 @@
 package com.xiaomi.infra.pegasus.spark.analyser;
 
+import com.xiaomi.infra.pegasus.spark.Config;
 import com.xiaomi.infra.pegasus.spark.FDSException;
 import com.xiaomi.infra.pegasus.spark.FDSService;
 import java.io.BufferedReader;
@@ -48,6 +49,11 @@ public class ColdBackupLoader implements PegasusLoader {
     initCheckpointUrls(metaPrefix, partitionCount);
 
     LOG.info("init fds default config and get the data urls");
+  }
+
+  @Override
+  public Config getConfig() {
+    return globalConfig;
   }
 
   @Override
