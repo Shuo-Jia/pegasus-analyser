@@ -6,7 +6,7 @@ public class BulkLoaderConfig extends Config {
 
   public boolean isDistinct = false;
   public boolean isSort = true;
-  public String pathRoot = "/temp/bullLoader";
+  public String pathRoot = "/temp/bulkLoader";
 
   public BulkLoaderConfig setDistinct(boolean distinct) {
     isDistinct = distinct;

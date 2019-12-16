@@ -22,6 +22,7 @@ object CSVBulkLoader {
       .setDistinct(false)
       .setRemote("", "80")
       .setTableInfo("C2", "T2")
+      // TODO tableId and partitionCount should be get just by clusterName and tableName
       .setTableId(20)
       .setTablePartitionCount(32)
 

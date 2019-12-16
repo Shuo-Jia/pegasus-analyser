@@ -21,35 +21,30 @@ public class BulkLoader {
   private static final Log LOG = LogFactory.getLog(BulkLoader.class);
 
   public static final String BULK_LOAD_INFO = "bulk_load_info";
-  public static final String BULK_LOAD_METADATA = "bulk_load_metadata";
-  public static final String SST_SUFFIX = ".sst";
+  private static final String BULK_LOAD_METADATA = "bulk_load_metadata";
+  private static final String SST_SUFFIX = ".sst";
 
   private int curSSTFileIndex = 1;
   private Long curSSTFileSize = 0L;
   private Map<String, Long> sstFileList = new HashMap<>();
 
-  // TODO drop table will result in name-id relation changed
-  public BulkLoadInfo bulkLoadInfo;
-  public DataMetaInfo dataMetaInfo;
+  // TODO drop table will result in name-id relationship changed
+  private BulkLoadInfo bulkLoadInfo;
+  private DataMetaInfo dataMetaInfo;
 
-  public int partitionCount;
-  public int partitionId;
+  private String bulkFilePrefix;
+  private String partitionPath;
+  private String bulkLoadInfoPath;
+  private String bulkLoadMetaDataPath;
 
-  public String bulkFilePrefix;
-  public String partitionPath;
-  public String bulkLoadInfoPath;
-  public String bulkLoadMetaDataPath;
+  private FDSService fdsService;
+  private SSTWriter sstWriter;
 
-  public FDSService fdsService;
-  public SSTWriter sstWriter;
-
-  Iterator<Tuple2<RocksDBRecord, String>> dataResourceIterator;
+  private Iterator<Tuple2<RocksDBRecord, String>> dataResourceIterator;
 
   public BulkLoader(
       BulkLoaderConfig config, Iterator<Tuple2<RocksDBRecord, String>> iterator, int partitionId) {
-    this.partitionId = partitionId;
     this.dataResourceIterator = iterator;
-    this.partitionCount = config.tablePartitionCount;
 
     this.bulkFilePrefix =
         config.remoteFsUrl

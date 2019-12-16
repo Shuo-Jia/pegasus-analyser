@@ -31,10 +31,8 @@ public class SSTWriter implements AutoCloseable {
     return 0;
   }
 
-  //
-
   /**
-   * only for write "null-null" kv, see {@link BulkLoader} createSSTFile method
+   * only for writing "null-null" kv, see {@link BulkLoader} createSSTFile method
    *
    * @throws RocksDBException
    */
