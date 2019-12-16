@@ -9,14 +9,14 @@ public class DataMetaInfo {
 
   public class FileInfo {
 
+    public String name;
+    public long size;
+    public String md5;
+
     public FileInfo(String name, long size, String md5) {
       this.name = name;
       this.size = size;
       this.md5 = md5;
     }
-
-    public String name;
-    public long size;
-    public String md5;
   }
 }
