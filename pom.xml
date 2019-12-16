@@ -12,6 +12,7 @@
   <modules>
     <module>pegasus-spark-analyser</module>
     <module>pegasus-spark-common</module>
+    <module>pegasus-spark-bulkloder</module>
   </modules>
 
   <name>pegasus analyser</name>
