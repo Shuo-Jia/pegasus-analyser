@@ -20,6 +20,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <pegasus.shade.name>com.xiaomi.infra.pegasus.bulkloader.thirdparty</pegasus.shade.name>
   </properties>
 
   <dependencies>
@@ -91,7 +92,7 @@
 
   <build>
       <plugins>
-        <!--<plugin>
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-shade-plugin</artifactId>
           <version>2.4.3</version>
@@ -102,20 +103,17 @@
                 <goal>shade</goal>
               </goals>
               <configuration>
-                <artifactSet>
-                  <excludes>
-                    <exclude>com.ibm.icu:*</exclude>
-                  </excludes>
-                </artifactSet>
-                <transformers>
-                  <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                    <mainClass>com.xiaomi.infra.pegasus.analyser.sample.spark.scanAllData</mainClass>
-                  </transformer>
-                </transformers>
+                <relocations>
+                  <relocation>
+                    <pattern>com.xiaomi.infra.galaxy</pattern>
+                    <shadedPattern>${pegasus.shade.name}.galaxy</shadedPattern>
+                  </relocation>
+                </relocations>
               </configuration>
             </execution>
           </executions>
-        </plugin>-->
+        </plugin>
+
         <plugin>
           <groupId>org.scala-tools</groupId>
           <artifactId>maven-scala-plugin</artifactId>
