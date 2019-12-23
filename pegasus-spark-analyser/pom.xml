@@ -34,6 +34,11 @@
       <artifactId>pegasus-spark-common</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
+    <dependency>
+      <groupId>com.xiaomi.infra</groupId>
+      <artifactId>pegasus-client</artifactId>
+      <version>1.11.9-thrift-0.11.0-inlined</version>
+    </dependency>
   </dependencies>
 
   <build>

@@ -1,6 +1,6 @@
 package com.xiaomi.infra.pegasus.spark.analyser.recipes.verify
 
-import com.typesafe.config.{ConfigException, ConfigFactory}
+/*import com.typesafe.config.{ConfigException, ConfigFactory}
 import com.xiaomi.infra.pegasus.spark.analyser.{ColdBackupConfig, PegasusContext}
 import org.apache.commons.logging.LogFactory
 import org.apache.spark.{SparkConf, SparkContext}
@@ -110,4 +110,4 @@ object VerifyDuplication {
     printf("Number of RDD1: %d\n", result.numRdd1)
     printf("Number of RDD2: %d\n", result.numRdd2)
   }
-}
+}*/

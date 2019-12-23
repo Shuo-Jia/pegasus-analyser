@@ -54,7 +54,7 @@ class PegasusSnapshotRDD private[analyser] (pegasusContext: PegasusContext,
   }
 
   def getPartitionCount: Int = {
-    coldBackupLoader.getPartitionCount
+    snapshotLoader.getPartitionCount
   }
 
   /**
