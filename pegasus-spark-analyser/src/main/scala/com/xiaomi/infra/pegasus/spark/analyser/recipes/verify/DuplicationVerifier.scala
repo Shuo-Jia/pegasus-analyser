@@ -6,7 +6,7 @@ import org.apache.commons.logging.LogFactory
 import org.apache.spark.{SparkConf, SparkContext}
 
 //TODO(wutao1): refactor "verify" based new "ColdBackupConfig.class"
-class DuplicationVerifierOptions {
+/*class DuplicationVerifierOptions {
   var tableName: String = ""
   var cluster1: String = ""
   var cluster2: String = ""
@@ -111,3 +111,4 @@ object VerifyDuplication {
     printf("Number of RDD2: %d\n", result.numRdd2)
   }
 }
+*/
