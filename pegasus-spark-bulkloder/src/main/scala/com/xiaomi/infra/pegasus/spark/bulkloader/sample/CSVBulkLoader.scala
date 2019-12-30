@@ -10,15 +10,14 @@ object CSVBulkLoader {
     //System.setProperty("java.security.krb5.conf", "/home/mi/krb5.conf")
 
     val conf = new SparkConf()
-      .setAppName("pegasus data analyse")
+      .setAppName("pegasus data bulkloader")
       .setIfMissing("spark.master", "local[1]")
-      .set("spark.executor.instances", "8")
 
     val sc = new SparkContext(conf)
 
-    val sstConfig = new BulkLoaderConfig()
+    val config = new BulkLoaderConfig()
 
-    sstConfig
+    config
       .setDistinct(false)
       .setRemote("", "80")
       .setTableInfo("C2", "T2")
@@ -32,7 +31,7 @@ object CSVBulkLoader {
         val lines = i.split(",")
         (lines(0), lines(1), lines(2))
       })
-      .saveAsSSTFile(sstConfig)
+      .saveAsSSTFile(config)
   }
 
 }
