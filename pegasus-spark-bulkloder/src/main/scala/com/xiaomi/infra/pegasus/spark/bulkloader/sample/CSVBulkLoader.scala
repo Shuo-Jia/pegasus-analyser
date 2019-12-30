@@ -1,6 +1,6 @@
 package com.xiaomi.infra.pegasus.spark.bulkloader.sample
 import com.xiaomi.infra.pegasus.spark.Config
-import com.xiaomi.infra.pegasus.spark.bulkloader.BulkLoaderConfig
+import com.xiaomi.infra.pegasus.spark.bulkloader.{BulkLoaderConfig, RocksDBRecord}
 import org.apache.spark.{SparkConf, SparkContext}
 import com.xiaomi.infra.pegasus.spark.bulkloader.CustomImplicits._
 
@@ -29,7 +29,7 @@ object CSVBulkLoader {
     sc.textFile("data.csv")
       .map(i => {
         val lines = i.split(",")
-        (lines(0), lines(1), lines(2))
+        (RocksDBRecord.create(lines(0),lines(1),lines(2)),"")
       })
       .saveAsSSTFile(config)
   }

@@ -7,20 +7,17 @@ import org.rocksdb.RocksDB
 
 import scala.collection.JavaConverters._
 
-class RocksDBRDD(rdd: RDD[(Array[Byte], Array[Byte], Array[Byte])]) {
+class RocksDBRDD(rdd: RDD[(RocksDBRecord,String)]) {
 
   def saveAsSSTFile(config: BulkLoaderConfig): Unit = {
-    val recordRDD = rdd.map(i => {
-      (RocksDBRecord.create(i._1, i._2, i._3), "1")
-    })
 
     val sstRDD = if (config.isDistinct) {
-      recordRDD
+      rdd
         .distinct(config.tablePartitionCount)
         .repartitionAndSortWithinPartitions(
           new PegasusHashPartitioner(config.tablePartitionCount))
     } else
-      recordRDD.repartitionAndSortWithinPartitions(
+      rdd.repartitionAndSortWithinPartitions(
         new PegasusHashPartitioner(config.tablePartitionCount))
 
     sstRDD.foreachPartition(i => {

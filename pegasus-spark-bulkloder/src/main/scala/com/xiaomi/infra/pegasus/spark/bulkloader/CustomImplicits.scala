@@ -11,12 +11,5 @@ object CustomImplicits {
       }
     }
 
-  implicit def convertFromByte(
-      rdd: RDD[(Array[Byte], Array[Byte], Array[Byte])]): RocksDBRDD =
-    new RocksDBRDD(rdd)
-
-  implicit def convertFromString(
-      rdd: RDD[(String, String, String)]): RocksDBRDD =
-    new RocksDBRDD(
-      rdd.map(i => (i._1.getBytes(), i._2.getBytes(), i._3.getBytes())))
+  implicit def convertFromByte(rdd: RDD[(RocksDBRecord,String)]): RocksDBRDD = new RocksDBRDD(rdd)
 }
