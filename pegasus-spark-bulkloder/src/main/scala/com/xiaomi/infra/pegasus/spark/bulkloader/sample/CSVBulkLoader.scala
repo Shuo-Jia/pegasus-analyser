@@ -33,6 +33,7 @@ object CSVBulkLoader {
       .setPolicyName("500g")
       .setRemote("","80")
       .setTableInfo("c4tst-fd","injection0")
+      .setDbReadAheadSize(10)
 
     //only test
     //val rdd = sc.textFile("data.csv")

@@ -21,8 +21,15 @@ class RocksDBRDD(rdd: RDD[(RocksDBRecord,String)]) {
         new PegasusHashPartitioner(config.tablePartitionCount))
 
     sstRDD.foreachPartition(i => {
-      RocksDB.loadLibrary()
-      new BulkLoader(config, i.asJava, TaskContext.getPartitionId()).write()
+      var count = 0
+      if(count % 100 == 0){
+        count = count + 1
+        println(count)
+      }else{
+        print(count)
+      }
+      /*RocksDB.loadLibrary()
+      new BulkLoader(config, i.asJava, TaskContext.getPartitionId()).write()*/
     })
   }
 
