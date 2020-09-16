@@ -42,8 +42,6 @@ class BulkLoader {
       BulkLoaderConfig config, Iterator<Tuple2<PegasusKey, PegasusValue>> iterator, int partitionId)
       throws PegasusSparkException {
 
-    this.remoteFileSystem = config.getRemoteFileSystem();
-
     String dataPathPrefix =
         config.getRemoteFileSystemURL()
             + config.getDataPathRoot()
@@ -68,6 +66,7 @@ class BulkLoader {
             config.getTablePartitionCount());
     this.dataMetaInfo = new DataMetaInfo();
 
+    this.remoteFileSystem = new RemoteFileSystem();
     this.sstFileWriterWrapper =
         new SstFileWriterWrapper(
             new RocksDBOptions(config.getRemoteFileSystemURL(), config.getRemoteFileSystemPort()));

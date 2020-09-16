@@ -18,12 +18,7 @@ object CSVBulkLoader {
     val sc = new SparkContext(conf)
 
     val config = new BulkLoaderConfig(
-      new FDSConfig(
-        "accessKey",
-        "accessSecret",
-        "bucketName",
-        "endPoint"
-      ),
+      "","",
       "clusterName",
       "tableName"
     ).setTableId(20)

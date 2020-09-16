@@ -14,12 +14,7 @@ object CountData {
 
     val coldBackupConfig =
       new ColdBackupConfig(
-        new FDSConfig( // if data is in HDFS, pass HDFSConfig()
-          "accessKey",
-          "accessSecret",
-          "bucketName",
-          "endPoint"
-        ),
+        "","",
         "clusterName",
         "tableName"
       )

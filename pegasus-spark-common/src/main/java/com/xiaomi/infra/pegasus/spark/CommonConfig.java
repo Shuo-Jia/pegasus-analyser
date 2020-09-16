@@ -5,26 +5,14 @@ import java.io.Serializable;
 /** The config class contains the common config for coldBackupConfig and bulkLoadConfig */
 public abstract class CommonConfig implements Serializable {
 
-  private RemoteFileSystem remoteFileSystem;
-
   private String remoteFileSystemURL;
   private String remoteFileSystemPort;
   private String clusterName;
   private String tableName;
 
-  protected CommonConfig(HDFSConfig hdfsConfig, String clusterName, String tableName) {
-    initConfig(hdfsConfig, clusterName, tableName);
-    this.remoteFileSystem = new HDFSFileSystem();
-  }
-
-  protected CommonConfig(FDSConfig fdsConfig, String clusterName, String tableName) {
-    initConfig(fdsConfig, clusterName, tableName);
-    this.remoteFileSystem = new FDSFileSystem(fdsConfig);
-  }
-
-  private void initConfig(HDFSConfig config, String clusterName, String tableName) {
-    this.remoteFileSystemURL = config.getUrl();
-    this.remoteFileSystemPort = config.getPort();
+  protected CommonConfig(String url, String port, String clusterName, String tableName) {
+    this.remoteFileSystemURL = url;
+    this.remoteFileSystemPort = port;
     this.clusterName = clusterName;
     this.tableName = tableName;
   }
@@ -43,10 +31,6 @@ public abstract class CommonConfig implements Serializable {
 
   public void setTableName(String tableName) {
     this.tableName = tableName;
-  }
-
-  public RemoteFileSystem getRemoteFileSystem() {
-    return remoteFileSystem;
   }
 
   public String getRemoteFileSystemURL() {

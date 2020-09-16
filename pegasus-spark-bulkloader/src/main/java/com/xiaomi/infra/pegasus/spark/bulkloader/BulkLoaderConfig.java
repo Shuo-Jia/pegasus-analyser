@@ -1,8 +1,6 @@
 package com.xiaomi.infra.pegasus.spark.bulkloader;
 
 import com.xiaomi.infra.pegasus.spark.CommonConfig;
-import com.xiaomi.infra.pegasus.spark.FDSConfig;
-import com.xiaomi.infra.pegasus.spark.HDFSConfig;
 import java.io.Serializable;
 
 /**
@@ -20,12 +18,8 @@ public class BulkLoaderConfig extends CommonConfig {
   private int tableId;
   private int tablePartitionCount;
 
-  public BulkLoaderConfig(HDFSConfig hdfsConfig, String clusterName, String tableName) {
-    super(hdfsConfig, clusterName, tableName);
-  }
-
-  public BulkLoaderConfig(FDSConfig fdsConfig, String clusterName, String tableName) {
-    super(fdsConfig, clusterName, tableName);
+  public BulkLoaderConfig(String url, String port, String clusterName, String tableName) {
+    super(url, port, clusterName, tableName);
   }
 
   /**

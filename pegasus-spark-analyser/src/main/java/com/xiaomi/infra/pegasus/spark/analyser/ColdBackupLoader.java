@@ -29,7 +29,7 @@ class ColdBackupLoader implements PegasusLoader {
 
   ColdBackupLoader(ColdBackupConfig config) throws PegasusSparkException {
     coldBackupConfig = config;
-    remoteFileSystem = config.getRemoteFileSystem();
+    remoteFileSystem = new RemoteFileSystem();
 
     String idPrefix =
         coldBackupConfig.getRemoteFileSystemURL()

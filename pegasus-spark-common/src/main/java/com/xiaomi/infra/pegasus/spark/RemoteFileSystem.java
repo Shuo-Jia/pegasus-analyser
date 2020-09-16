@@ -2,20 +2,81 @@ package com.xiaomi.infra.pegasus.spark;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.Serializable;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.MD5MD5CRC32FileChecksum;
+import org.apache.hadoop.fs.Path;
 
-public interface RemoteFileSystem extends Serializable {
+public class RemoteFileSystem {
 
-  BufferedReader getReader(String filePath) throws PegasusSparkException;
+  public BufferedReader getReader(String filePath) throws PegasusSparkException {
+    try {
+      InputStream inputStream =
+          org.apache.hadoop.fs.FileSystem.get(new URI(filePath), new Configuration())
+              .open(new Path(filePath));
+      return new BufferedReader(new InputStreamReader(inputStream));
+    } catch (Exception e) {
+      throw new PegasusSparkException("get filePath reader failed, [url: " + filePath + "]", e);
+    }
+  }
 
-  BufferedWriter getWriter(String filePath) throws PegasusSparkException;
+  public BufferedWriter getWriter(String filePath) throws PegasusSparkException {
+    try {
+      OutputStreamWriter outputStreamWriter =
+          new OutputStreamWriter(
+              org.apache.hadoop.fs.FileSystem.get(new URI(filePath), new Configuration())
+                  .create(new Path(filePath)));
+      return new BufferedWriter(outputStreamWriter);
+    } catch (Exception e) {
+      throw new PegasusSparkException("get filePath writer failed, [url: " + filePath + "]", e);
+    }
+  }
 
-  FileStatus[] getFileStatus(String path) throws PegasusSparkException;
+  public FileStatus[] getFileStatus(String path) throws PegasusSparkException {
+    try {
+      FileSystem fs = FileSystem.get(URI.create(path), new Configuration());
+      return fs.listStatus(new Path(path));
+    } catch (IOException e) {
+      throw new PegasusSparkException("get file status failed:", e);
+    }
+  }
 
-  boolean exist(String path) throws PegasusSparkException;
+  public boolean exist(String path) throws PegasusSparkException {
+    FileSystem fs = null;
+    try {
+      fs = FileSystem.get(URI.create(path), new Configuration());
+      return fs.exists(new Path(path));
+    } catch (IOException e) {
+      throw new PegasusSparkException("check the file existed failed:", e);
+    }
+  }
 
-  boolean delete(String path, boolean recursive) throws PegasusSparkException;
+  public boolean delete(String path, boolean recursive) throws PegasusSparkException {
+    FileSystem fs = null;
+    try {
+      fs = FileSystem.get(URI.create(path), new Configuration());
+      return fs.delete(new Path(path), recursive);
+    } catch (IOException e) {
+      throw new PegasusSparkException("delete the file existed failed:", e);
+    }
+  }
 
-  String getFileMD5(String filePath) throws PegasusSparkException;
+  public String getFileMD5(String filePath) throws PegasusSparkException {
+    try {
+      MD5MD5CRC32FileChecksum checksum =
+          (MD5MD5CRC32FileChecksum)
+              FileSystem.get(new URI(filePath), new Configuration())
+                  .getFileChecksum(new Path(filePath));
+      return checksum.toString().split(":")[1];
+    } catch (IOException | URISyntaxException e) {
+      throw new PegasusSparkException("get md5 from hdfs failed:", e);
+    }
+  }
 }

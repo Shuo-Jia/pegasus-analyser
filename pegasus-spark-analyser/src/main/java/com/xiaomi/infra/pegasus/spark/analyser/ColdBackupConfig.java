@@ -1,8 +1,6 @@
 package com.xiaomi.infra.pegasus.spark.analyser;
 
 import com.xiaomi.infra.pegasus.spark.CommonConfig;
-import com.xiaomi.infra.pegasus.spark.FDSConfig;
-import com.xiaomi.infra.pegasus.spark.HDFSConfig;
 
 /**
  * ColdBackupConfig is used when you manipulate the cold-backup data. <br>
@@ -22,16 +20,12 @@ public class ColdBackupConfig extends CommonConfig implements Config {
   private int fileOpenCount;
   private String policyName;
   private String coldBackupTime;
-  private DataVersion dataVersion = new DataVersion1();
+  private DataVersion dataVersion;
 
-  public ColdBackupConfig(HDFSConfig hdfsConfig, String clusterName, String tableName) {
-    super(hdfsConfig, clusterName, tableName);
+  public ColdBackupConfig(String url, String port, String clusterName, String tableName) {
+    super(url, port, clusterName, tableName);
     setReadOptions(DEFAULT_FILE_OPEN_COUNT, DEFAULT_READ_AHEAD_SIZE_MB);
-  }
-
-  public ColdBackupConfig(FDSConfig fdsConfig, String clusterName, String tableName) {
-    super(fdsConfig, clusterName, tableName);
-    setReadOptions(DEFAULT_FILE_OPEN_COUNT, DEFAULT_READ_AHEAD_SIZE_MB);
+    setDataVersion(new DataVersion1());
   }
 
   @Override
