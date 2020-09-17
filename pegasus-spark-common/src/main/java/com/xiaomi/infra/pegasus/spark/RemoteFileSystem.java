@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import org.apache.hadoop.conf.Configuration;
@@ -14,7 +15,7 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.MD5MD5CRC32FileChecksum;
 import org.apache.hadoop.fs.Path;
 
-public class RemoteFileSystem {
+public class RemoteFileSystem implements Serializable {
 
   public BufferedReader getReader(String filePath) throws PegasusSparkException {
     try {
