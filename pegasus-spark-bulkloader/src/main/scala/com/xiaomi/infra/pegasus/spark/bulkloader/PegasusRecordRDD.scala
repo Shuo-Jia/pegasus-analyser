@@ -1,10 +1,11 @@
 package com.xiaomi.infra.pegasus.spark.bulkloader
 
 import CustomImplicits._
-import com.xiaomi.infra.pegasus.spark.{HDFSFileSystem, JNILibraryLoader}
+import com.xiaomi.infra.pegasus.spark.{JNILibraryLoader, RemoteFileSystem}
 import org.apache.commons.logging.{Log, LogFactory}
 import org.apache.spark.TaskContext
 import org.apache.spark.rdd.RDD
+
 import scala.collection.JavaConverters._
 
 class PegasusRecordRDD(data: RDD[(PegasusKey, PegasusValue)]) {
@@ -38,7 +39,7 @@ class PegasusRecordRDD(data: RDD[(PegasusKey, PegasusValue)]) {
   private def checkExistAndDelete(config: BulkLoaderConfig): Unit = {
     val tablePath = config.getRemoteFileSystemURL + "/" +
       config.getDataPathRoot + "/" + config.getClusterName + "/" + config.getTableName
-    val remoteFileSystem = config.getRemoteFileSystem
+    val remoteFileSystem = new RemoteFileSystem()
 
     if (remoteFileSystem.exist(tablePath)) {
       LOG.warn(
