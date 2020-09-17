@@ -25,6 +25,7 @@ public class ColdBackupConfig extends CommonConfig implements Config {
   public ColdBackupConfig(String url, String port, String clusterName, String tableName) {
     super(url, port, clusterName, tableName);
     setReadOptions(DEFAULT_FILE_OPEN_COUNT, DEFAULT_READ_AHEAD_SIZE_MB);
+    setPolicyName(tableName);
     setDataVersion(new DataVersion1());
   }
 

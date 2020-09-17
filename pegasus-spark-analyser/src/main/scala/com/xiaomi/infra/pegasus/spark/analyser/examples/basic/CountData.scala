@@ -14,7 +14,8 @@ object CountData {
 
     val coldBackupConfig =
       new ColdBackupConfig(
-        "","",
+        "",
+        "",
         "clusterName",
         "tableName"
       )

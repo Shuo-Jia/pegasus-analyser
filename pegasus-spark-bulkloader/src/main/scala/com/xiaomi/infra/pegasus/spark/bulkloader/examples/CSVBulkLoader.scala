@@ -18,7 +18,8 @@ object CSVBulkLoader {
     val sc = new SparkContext(conf)
 
     val config = new BulkLoaderConfig(
-      "","",
+      "",
+      "",
       "clusterName",
       "tableName"
     ).setTableId(20)

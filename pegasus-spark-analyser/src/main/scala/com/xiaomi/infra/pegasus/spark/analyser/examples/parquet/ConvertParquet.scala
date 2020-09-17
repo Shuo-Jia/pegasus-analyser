@@ -18,7 +18,7 @@ object ConvertParquet {
 
     // if data in HDFS, pass HDFSConfig()
     val coldBackupConfig =
-      new ColdBackupConfig("","", "onebox", "temp")
+      new ColdBackupConfig("", "", "onebox", "temp")
 
     val rdd = spark.sparkContext.pegasusSnapshotRDD(coldBackupConfig)
 
